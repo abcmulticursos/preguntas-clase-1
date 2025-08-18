@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-s0cale=1.0">
+    <title>Bienvenida a la Comunidad</title>
+<style>
+    /* --- ESTILOS GENERALES Y AJUSTABLES --- */
+    html, body {
+        min-height: 100%;
+    }
+
+    body {
+        background-image: linear-gradient(to bottom, #582695, #984af1);
+        background-attachment: fixed;
+        color: white;
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 20px 2.5mm;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        min-height: 100vh;
+        box-sizing: border-box;
+    }
+
+    .main-container {
+        max-width: 600px;
+        width: 100%;
+        background-color: transparent;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    /* --- ESTILOS PARA LAS IMÁGENES --- */
+    .welcome-image-container {
+        margin-bottom: 20px;
+        width: 100%;
+    }
+    .welcome-image-container img {
+        width: 100%;
+        height: auto;
+        border-radius: 17px;
+        display: block;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .no-shadow img {
+        box-shadow: none;
+    }
+
+    /* --- ESTILOS PARA LOS RECUADROS DE TEXTO --- */
+    .text-rectangle {
+        background-color: #f3f0f0;
+        border-radius: 10px;
+        padding: 15px;
+        margin-bottom: 10px;
+        text-align: center;
+        color: black;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .text-rectangle.large {
+        font-size: 23pt;
+        font-weight: normal;
+    }
+
+    .text-rectangle.small {
+        font-size: 15pt;
+        font-weight: normal;
+        line-height: 1.4;
+    }
+
+    /* --- ESTILOS PARA EL FORMULARIO --- */
+    .form-container {
+        background-color: #d4f1fe;
+        border: 1px solid #cccccc;
+        border-radius: 10px;
+        padding: 20px;
+        margin-top: 20px;
+        text-align: left;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+        color: black;
+        font-size: 19px;
+    }
+
+    /* Estilo para el asterisco rojo de "obligatorio" */
+    .form-group label .required-asterisk {
+        color: red;
+        margin-left: 2px;
+    }
+
+    /* Estilos de los campos de entrada unificados */
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        width: 100%;
+        padding: 10px;
+        box-sizing: border-box;
+        border-radius: 5px;
+        border: 1px solid black;
+        background-color: white;
+        font-size: 19px;
+        font-family: Arial, sans-serif;
+        line-height: 1.2;
+        margin-bottom: 30px;
+    }
+
+    /* PROPIEDADES DE ALTURA ACTUALIZADAS */
+    /* Regla para los campos que deben tener una altura fija de 54px */
+    .form-group input,
+    .form-group select {
+        height: 54px;
+        line-height: 54px;
+    }
+    
+    /* Regla específica para el campo de mensaje largo */
+    .form-group textarea#mensaje {
+        min-height: 255px;
+    }
+
+    /* ESTILO ADICIONAL: Para el texto de sugerencia "Tu respuesta" */
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+        color: #000000;
+        opacity: 0.38;
+    }
+
+    .submit-button {
+        background-color: #4CAF50;
+        color: white;
+        padding: 15px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: bold;
+        width: 100%;
+        margin-top: 10px;
+        margin-bottom: 15px;
+    }
+
+    /* ESTILOS PARA LA IMAGEN Y BOTÓN DE AGRADECIMIENTO */
+    #mensaje-exito {
+        display: none;
+        margin-top: 20px;
+        max-width: 600px;
+        width: 100%;
+        text-align: center;
+    }
+
+    #mensaje-exito img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 17px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .whatsapp-button {
+        display: block;
+        margin: 30px auto 0;
+        max-width: 300px;
+        padding: 15px 30px;
+        text-decoration: none;
+        border-radius: 50px;
+        font-size: 18px;
+        font-weight: bold;
+        color: white;
+        background-color: #25D366;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        transition: background-color 0.3s;
+    }
+
+    .whatsapp-button:hover {
+        background-color: #128C7E;
+    }
+</style>
+</head>
+<body>
+
+<div class="main-container" id="main-container">
+    <div class="welcome-image-container">
+        <img src="images/chica-nocturna-bienvenida.jpg" alt="Chica Nocturna Bienvenida">
+    </div>
+
+    <div class="text-rectangle large">
+        🎉 ¡BIENVENIDA A LA COMUNIDAD! 🤗✨
+    </div>
+
+    <div class="text-rectangle small">
+        🟢 <b>Te felicito por tus ganas de aprender. Recuerda que tu único Asesor es Alberto Salinas.</b>
+    </div>
+
+    <div class="text-rectangle small">
+        ❌ ☝🏼<b>No te salgas del grupo</b> por que perderás todo acceso, <b>no te quedes atrás,</b> tú puedes lograr y convertirte en esa confeccionista profesional que tando deseaste ser.
+    </div>
+
+    <div class="text-rectangle small">
+        🧵💖 <b>#Yo si puedo #Por que soy yo y me lo merezco.</b>
+    </div>
+
+<div style="height: 100px;"></div>
+
+
+    <div class="welcome-image-container no-shadow">
+        <img src="images/cuentame-acerca-de-ti.jpg" alt="Cuéntame acerca de ti">
+    </div>
+
+    <div class="text-rectangle small">
+        🔵 <b>Te invito a responder estas preguntas,</b> que tu respuesta nos ayudará a conocer más de tí y orientarte. 😊👇🏼
+    </div>
+
+    <div class="form-container" id="form-container">
+        <p style="color: red; font-size: 14px; margin-top: -10px;">
+            * Los campos con asterisco son obligatorios
+        </p>
+        <form action="https://script.google.com/macros/s/AKfycbxrI7FqEGnbekaTfnJSKn-CNKB0cK8graaGBDxrUd23OaocZCQkLSIioF3v2nC-_XqYIw/exec" method="POST" id="miFormulario">
+            <div class="form-group">
+                <label for="nombre">1️⃣ ¿Cuál es tu nombre?<span class="required-asterisk">*</span></label>
+                <input type="text" id="nombre" name="nombre" placeholder="Tu respuesta" required>
+            </div>
+
+            <div class="form-group">
+                <label for="pais">2️⃣ ¿De qué pais nos visitas? 🇵🇪 🇨🇴 🇪🇨 🇲🇽 🇨🇱 🇧🇴 🇬🇹<span class="required-asterisk">*</span></label>
+                <input type="text" id="pais" name="pais" placeholder="Tu respuesta" required>
+            </div>
+
+            <div class="form-group">
+                <label for="telefono">3️⃣ Tu Teléfono<span class="required-asterisk">*</span></label>
+                <input type="tel" id="telefono" name="telefono" placeholder="Tu respuesta" required>
+            </div>
+
+            <div class="form-group">
+                <label for="asesor">4️⃣ Ya sabes que Alberto Salinas es tu Asesor? 😎<span class="required-asterisk">*</span></label>
+                <select id="asesor" name="asesor" required>
+                    <option value="" disabled selected hidden>Selecciona una opción</option>
+                    <option value="si">Sí, Alberto es mi Asesor 😊✅</option>
+                    <option value="no">No sé quien es mi Asesor 😰❌</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="formulario-importancia">5️⃣ Sabías que el formulario de Patronaje es importante para que aprendas tu primera toma de medidas y hacer tu primer patrón de costura? ✂️👚<span class="required-asterisk">*</span></label>
+                <select id="formulario-importancia" name="formulario-importancia" required>
+                    <option value="" disabled selected hidden>Selecciona una opción</option>
+                    <option value="no-sabia">No lo sabía, soy nueva 😊</option>
+                    <option value="ahora-se">Sí lo sabía 😉</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="recibiste-formulario">6️⃣ ¿Recibiste tu formulario de Patronaje Premium? 📘<span class="required-asterisk">*</span></label>
+                <select id="recibiste-formulario" name="recibiste-formulario" required>
+                    <option value="" disabled selected hidden>Selecciona una opción</option>
+                    <option value="si-tengo">Sí, lo tengo gracias! 🤗✅</option>
+                    <option value="no-pedi">No lo pedí 😥</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="envio-whatsapp">7️⃣ ¿Deseas que el Asesor Alberto te envíe el Formulario de Patronaje por Whatsapp? 👉🏼📲<span class="required-asterisk">*</span></label>
+                <select id="envio-whatsapp" name="envio-whatsapp" required>
+                    <option value="" disabled selected hidden>Selecciona una opción</option>
+                    <option value="si-necesito">Sí por favor, lo necesito 🙏🏼</option>
+                    <option value="ya-tengo">Ya lo tengo! 🙌🏼</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="experiencia">8️⃣ ¿Cuál es tu nivel de Experiencia? 😊<span class="required-asterisk">*</span></label>
+                <select id="experiencia" name="experiencia" required>
+                    <option value="" disabled selected hidden>Selecciona una opción</option>
+                    <option value="principiante">Principiante 🐣</option>
+                    <option value="intermedio">Intermedio 🤗</option>
+                    <option value="avanzado">Avanzado 👩🏻‍🎓</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="sesion-temor">9️⃣ ¿Estas list@ para tu primera sesión 👩🏻‍🎓👨‍🎓 o tienes un poco de temor 😨?<span class="required-asterisk">*</span></label>
+                <select id="sesion-temor" name="sesion-temor" required>
+                    <option value="" disabled selected hidden>Selecciona una opción</option>
+                    <option value="Estoy-lista">Estoy list@ ✌🏼</option>
+                    <option value="tengo-temor">Tengo un poco de temor 🥺</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="maestra-isabel">1️⃣0️⃣ Ya conocías a la Maestra Isabel? 💁🏻‍♀️✂️👚<span class="required-asterisk">*</span></label>
+                <select id="maestra-isabel" name="maestra-isabel" required>
+                    <option value="" disabled selected hidden>Selecciona una opción</option>
+                    <option value="si-la-conozco">Sí la conozco 😊</option>
+                    <option value="no-la-conocia">No la conocía ☺️</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="prenda">1️⃣1️⃣ ¿Que prenda de vestir te gustaría aprender? 👗👖👕👚<span class="required-asterisk">*</span></label>
+                <input type="text" id="prenda" name="prenda" placeholder="Tu respuesta" required>
+            </div>
+
+            <div class="form-group">
+                <label for="no-gusta">1️⃣2️⃣ ¿Qué es lo que no te gusta en el grupo? 😰<span class="required-asterisk">*</span></label>
+                <input type="text" id="no-gusta" name="no-gusta" placeholder="Tu respuesta" required>
+            </div>
+
+            <div class="form-group">
+                <label for="mensaje">1️⃣3️⃣ Envíanos un mensaje</label>
+                <textarea id="mensaje" name="mensaje"></textarea>
+            </div>
+
+            <button type="submit" class="submit-button">Enviar Respuesta</button>
+        </form>
+    </div>
+</div>
+
+<div id="mensaje-exito">
+    <img src="images/felicidades-nos-vemos-en-whatsapp.jpg" alt="Felicidades nos vemos en WhatsApp">
+
+    <a href="https://wa.me/+51965723248" class="whatsapp-button" target="_blank">
+        Ir al chat de WhatsApp
+    </a>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const formulario = document.getElementById('miFormulario');
+        const mainContainer = document.getElementById('main-container');
+        const mensajeExito = document.getElementById('mensaje-exito');
+
+        formulario.addEventListener('submit', function(event) {
+            // Detiene el envío normal del formulario
+            event.preventDefault();
+
+            // Oculta todo el contenido principal y muestra la imagen de agradecimiento
+            mainContainer.style.display = 'none';
+            mensajeExito.style.display = 'block';
+
+            // Desplaza la página al inicio de forma suave
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+
+            // Envía los datos a Google Sheets usando la API Fetch
+            const formData = new FormData(formulario);
+            const scriptURL = formulario.getAttribute('action');
+
+            fetch(scriptURL, { method: 'POST', body: formData })
+                .then(response => console.log('Envío exitoso!', response))
+                .catch(error => console.error('Error!', error));
+        });
+    });
+</script>
+
+</body>
+</html>
