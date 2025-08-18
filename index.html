@@ -76,7 +76,7 @@
 
     /* --- ESTILOS PARA EL FORMULARIO --- */
     .form-container {
-        background-color: #fdd2fd; /* Color de fondo del formulario actualizado */
+        background-color: #fdd2fd;
         border: 1px solid #cccccc;
         border-radius: 10px;
         padding: 20px;
@@ -120,24 +120,25 @@
         margin-bottom: 30px;
     }
 
-    /* PROPIEDADES DE ALTURA ACTUALIZADAS */
-    /* Regla para los campos que deben tener una altura fija de 54px */
-    .form-group input,
-    .form-group select,
-    .form-group textarea#nombre,
-    .form-group textarea#telefono,
-    .form-group textarea#clase-feedback,
-    .form-group textarea#practicar-medidas {
+    /* PROPIEDADES DE ALTURA Y COMPORTAMIENTO UNIFORMES */
+    .form-group textarea,
+    .form-group input[type="tel"] {
         height: 54px;
-        line-height: 54px;
-    }
-    
-    /* Regla específica para el campo de mensaje largo */
-    .form-group textarea#sugerencias {
-        min-height: 255px;
+        line-height: 54px; /* Centra el texto verticalmente */
+        resize: none; /* Evita que el usuario cambie el tamaño */
+        overflow: hidden; /* Oculta cualquier texto que se desborde */
     }
 
-    /* ESTILO ADICIONAL: Para el texto de sugerencia "Tu respuesta" */
+    /* Regla específica para el campo de mensaje largo */
+    .form-group textarea#sugerencias {
+        height: auto;
+        min-height: 255px;
+        line-height: 1.2;
+        overflow: auto;
+        resize: vertical;
+    }
+    
+    /* Estilo para el placeholder "Tu respuesta" */
     .form-group input::placeholder,
     .form-group textarea::placeholder {
         color: #000000;
@@ -233,19 +234,14 @@
                     <option value="chile">Chile 🇨🇱</option>
                     <option value="argentina">Argentina 🇦🇷</option>
                     <option value="bolivia">Bolivia 🇧🇴</option>
-                    <option value="venezuela">Venezuela 🇻🇪</option>
-                    <option value="honduras">Honduras 🇭🇳</option>
-                    <option value="el-salvador">El Salvador 🇸🇻</option>
-                    <option value="uruguay">Uruguay 🇺🇾</option>
                     <option value="guatemala">Guatemala 🇬🇹</option>
-                    <option value="espana">España 🇪🇸</option>
                     <option value="otro">Otro</option>
                 </select>
             </div>
 
             <div class="form-group">
                 <label for="telefono">3️⃣ 📞 Número de Teléfono 📲</label>
-                <textarea id="telefono" name="telefono" placeholder="Tu respuesta"></textarea>
+                <input type="tel" id="telefono" name="telefono" placeholder="Tu respuesta">
             </div>
 
             <div class="form-group">
@@ -342,20 +338,16 @@
         const mensajeExito = document.getElementById('mensaje-exito');
 
         formulario.addEventListener('submit', function(event) {
-            // Detiene el envío normal del formulario
             event.preventDefault();
 
-            // Oculta todo el contenido principal y muestra la imagen de agradecimiento
             mainContainer.style.display = 'none';
             mensajeExito.style.display = 'block';
 
-            // Desplaza la página al inicio de forma suave
             window.scrollTo({
                 top: 0,
                 behavior: 'smooth'
             });
 
-            // Envía los datos a Google Sheets usando la API Fetch
             const formData = new FormData(formulario);
             const scriptURL = formulario.getAttribute('action');
 
