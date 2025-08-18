@@ -124,6 +124,8 @@
     /* Regla para los campos que deben tener una altura fija de 54px */
     .form-group input,
     .form-group select,
+    .form-group textarea#nombre,
+    .form-group textarea#telefono,
     .form-group textarea#clase-feedback,
     .form-group textarea#practicar-medidas {
         height: 54px;
@@ -232,6 +234,9 @@
                     <option value="argentina">Argentina 🇦🇷</option>
                     <option value="bolivia">Bolivia 🇧🇴</option>
                     <option value="venezuela">Venezuela 🇻🇪</option>
+                    <option value="honduras">Honduras 🇭🇳</option>
+                    <option value="el-salvador">El Salvador 🇸🇻</option>
+                    <option value="uruguay">Uruguay 🇺🇾</option>
                     <option value="guatemala">Guatemala 🇬🇹</option>
                     <option value="espana">España 🇪🇸</option>
                     <option value="otro">Otro</option>
@@ -240,14 +245,18 @@
 
             <div class="form-group">
                 <label for="telefono">3️⃣ 📞 Número de Teléfono 📲</label>
-                <input type="tel" id="telefono" name="telefono" placeholder="Tu respuesta">
+                <textarea id="telefono" name="telefono" placeholder="Tu respuesta"></textarea>
             </div>
 
             <div class="form-group">
-                <label for="clase-feedback">4️⃣ ¿Qué te pareció la primera clase?</label>
-                <textarea id="clase-feedback" name="clase-feedback" placeholder="Tu respuesta"></textarea>
+                <label for="formulario-medidas-pedido">4️⃣ ¿Ya pediste tu formulario para toma de medidas?</label>
+                <select id="formulario-medidas-pedido" name="formulario-medidas-pedido">
+                    <option value="" disabled selected hidden>Selecciona una opción</option>
+                    <option value="si-lo-tengo">Sí lo tengo</option>
+                    <option value="aun-no-he-pedido">Aún no lo he pedido.</option>
+                </select>
             </div>
-
+            
             <div class="form-group">
                 <label for="entender-clase">5️⃣ ¿La pudiste entender Claramente?</label>
                 <select id="entender-clase" name="entender-clase">
@@ -259,8 +268,8 @@
             </div>
 
             <div class="form-group">
-                <label for="formulario-medidas">6️⃣ ¿Ya sabes para qué sirve el formulario para toma de medidas?</label>
-                <select id="formulario-medidas" name="formulario-medidas">
+                <label for="formulario-medidas-utilidad">6️⃣ ¿Ya sabes para qué sirve el formulario para toma de medidas?</label>
+                <select id="formulario-medidas-utilidad" name="formulario-medidas-utilidad">
                     <option value="" disabled selected hidden>Selecciona una opción</option>
                     <option value="si-lo-se">Sí, ya lo sé 🤗</option>
                     <option value="no-se-para-que-sirve">No sé para qué sirve 🥺</option>
