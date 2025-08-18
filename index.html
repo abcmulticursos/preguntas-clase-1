@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-s0cale=1.0">
-    <title>Bienvenida a la Comunidad</title>
+    <title>Test Primera Clase</title>
 <style>
     /* --- ESTILOS GENERALES Y AJUSTABLES --- */
     html, body {
@@ -11,7 +11,7 @@
     }
 
     body {
-        background-image: linear-gradient(to bottom, #582695, #984af1);
+        background-image: linear-gradient(to bottom, #c021f9, #f92e91);
         background-attachment: fixed;
         color: white;
         font-family: Arial, sans-serif;
@@ -76,7 +76,7 @@
 
     /* --- ESTILOS PARA EL FORMULARIO --- */
     .form-container {
-        background-color: #d4f1fe;
+        background-color: #fdd2fd; /* Color de fondo del formulario actualizado */
         border: 1px solid #cccccc;
         border-radius: 10px;
         padding: 20px;
@@ -123,13 +123,15 @@
     /* PROPIEDADES DE ALTURA ACTUALIZADAS */
     /* Regla para los campos que deben tener una altura fija de 54px */
     .form-group input,
-    .form-group select {
+    .form-group select,
+    .form-group textarea#clase-feedback,
+    .form-group textarea#practicar-medidas {
         height: 54px;
         line-height: 54px;
     }
     
     /* Regla específica para el campo de mensaje largo */
-    .form-group textarea#mensaje {
+    .form-group textarea#sugerencias {
         min-height: 255px;
     }
 
@@ -194,34 +196,15 @@
 
 <div class="main-container" id="main-container">
     <div class="welcome-image-container">
-        <img src="images/chica-nocturna-bienvenida.jpg" alt="Chica Nocturna Bienvenida">
+        <img src="images/chica-nocturna-bienvenida.jpg" alt="Test de la primera clase">
     </div>
 
     <div class="text-rectangle large">
-        🎉 ¡BIENVENIDA A LA COMUNIDAD! 🤗✨
+        📝 Test de la Primera Clase
     </div>
 
     <div class="text-rectangle small">
-        🟢 <b>Te felicito por tus ganas de aprender. Recuerda que tu único Asesor es Alberto Salinas.</b>
-    </div>
-
-    <div class="text-rectangle small">
-        ❌ ☝🏼<b>No te salgas del grupo</b> por que perderás todo acceso, <b>no te quedes atrás,</b> tú puedes lograr y convertirte en esa confeccionista profesional que tando deseaste ser.
-    </div>
-
-    <div class="text-rectangle small">
-        🧵💖 <b>#Yo si puedo #Por que soy yo y me lo merezco.</b>
-    </div>
-
-<div style="height: 100px;"></div>
-
-
-    <div class="welcome-image-container no-shadow">
-        <img src="images/cuentame-acerca-de-ti.jpg" alt="Cuéntame acerca de ti">
-    </div>
-
-    <div class="text-rectangle small">
-        🔵 <b>Te invito a responder estas preguntas,</b> que tu respuesta nos ayudará a conocer más de tí y orientarte. 😊👇🏼
+        ¡Hola! Nos gustaría saber cómo te fue en tu primera sesión para seguir mejorando. Por favor, responde las siguientes preguntas.
     </div>
 
     <div class="form-container" id="form-container">
@@ -229,100 +212,105 @@
             * Los campos con asterisco son obligatorios
         </p>
         <form action="https://script.google.com/macros/s/AKfycbxrI7FqEGnbekaTfnJSKn-CNKB0cK8graaGBDxrUd23OaocZCQkLSIioF3v2nC-_XqYIw/exec" method="POST" id="miFormulario">
-            <input type="hidden" name="form_name" value="bienvenida">
+            
+            <input type="hidden" name="form_name" value="clase_1">
 
             <div class="form-group">
-                <label for="nombre">1️⃣ ¿Cuál es tu nombre?<span class="required-asterisk">*</span></label>
-                <input type="text" id="nombre" name="nombre" placeholder="Tu respuesta" required>
+                <label for="nombre">1️⃣ ¿Cuál es tu nombre?</label>
+                <textarea id="nombre" name="nombre" placeholder="Tu respuesta"></textarea>
             </div>
 
             <div class="form-group">
-                <label for="pais">2️⃣ ¿De qué pais nos visitas? 🇵🇪 🇨🇴 🇪🇨 🇲🇽 🇨🇱 🇧🇴 🇬🇹<span class="required-asterisk">*</span></label>
-                <input type="text" id="pais" name="pais" placeholder="Tu respuesta" required>
-            </div>
-
-            <div class="form-group">
-                <label for="telefono">3️⃣ Tu Teléfono<span class="required-asterisk">*</span></label>
-                <input type="tel" id="telefono" name="telefono" placeholder="Tu respuesta" required>
-            </div>
-
-            <div class="form-group">
-                <label for="asesor">4️⃣ Ya sabes que Alberto Salinas es tu Asesor? 😎<span class="required-asterisk">*</span></label>
-                <select id="asesor" name="asesor" required>
+                <label for="pais">2️⃣ ¿De qué país nos visitas?</label>
+                <select id="pais" name="pais">
                     <option value="" disabled selected hidden>Selecciona una opción</option>
-                    <option value="si">Sí, Alberto es mi Asesor 😊✅</option>
-                    <option value="no">No sé quien es mi Asesor 😰❌</option>
+                    <option value="peru">Perú 🇵🇪</option>
+                    <option value="colombia">Colombia 🇨🇴</option>
+                    <option value="ecuador">Ecuador 🇪🇨</option>
+                    <option value="mexico">México 🇲🇽</option>
+                    <option value="chile">Chile 🇨🇱</option>
+                    <option value="argentina">Argentina 🇦🇷</option>
+                    <option value="bolivia">Bolivia 🇧🇴</option>
+                    <option value="venezuela">Venezuela 🇻🇪</option>
+                    <option value="guatemala">Guatemala 🇬🇹</option>
+                    <option value="espana">España 🇪🇸</option>
+                    <option value="otro">Otro</option>
                 </select>
             </div>
 
             <div class="form-group">
-                <label for="formulario-importancia">5️⃣ Sabías que el formulario de Patronaje es importante para que aprendas tu primera toma de medidas y hacer tu primer patrón de costura? ✂️👚<span class="required-asterisk">*</span></label>
-                <select id="formulario-importancia" name="formulario-importancia" required>
+                <label for="telefono">3️⃣ 📞 Número de Teléfono 📲</label>
+                <input type="tel" id="telefono" name="telefono" placeholder="Tu respuesta">
+            </div>
+
+            <div class="form-group">
+                <label for="clase-feedback">4️⃣ ¿Qué te pareció la primera clase?</label>
+                <textarea id="clase-feedback" name="clase-feedback" placeholder="Tu respuesta"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="entender-clase">5️⃣ ¿La pudiste entender Claramente?</label>
+                <select id="entender-clase" name="entender-clase">
                     <option value="" disabled selected hidden>Selecciona una opción</option>
-                    <option value="no-sabia">No lo sabía, soy nueva 😊</option>
-                    <option value="ahora-se">Sí lo sabía 😉</option>
+                    <option value="si-entendi">Sí entendí 🤗</option>
+                    <option value="no-entendi-bien">No entendí muy bien. 🫣</option>
+                    <option value="no-pude-conectarme">No pude conectarme.😣</option>
                 </select>
             </div>
 
             <div class="form-group">
-                <label for="recibiste-formulario">6️⃣ ¿Recibiste tu formulario de Patronaje Premium? 📘<span class="required-asterisk">*</span></label>
-                <select id="recibiste-formulario" name="recibiste-formulario" required>
+                <label for="formulario-medidas">6️⃣ ¿Ya sabes para qué sirve el formulario para toma de medidas?</label>
+                <select id="formulario-medidas" name="formulario-medidas">
                     <option value="" disabled selected hidden>Selecciona una opción</option>
-                    <option value="si-tengo">Sí, lo tengo gracias! 🤗✅</option>
-                    <option value="no-pedi">No lo pedí 😥</option>
+                    <option value="si-lo-se">Sí, ya lo sé 🤗</option>
+                    <option value="no-se-para-que-sirve">No sé para qué sirve 🥺</option>
                 </select>
             </div>
 
             <div class="form-group">
-                <label for="envio-whatsapp">7️⃣ ¿Deseas que el Asesor Alberto te envíe el Formulario de Patronaje por Whatsapp? 👉🏼📲<span class="required-asterisk">*</span></label>
-                <select id="envio-whatsapp" name="envio-whatsapp" required>
+                <label for="tomar-medidas">7️⃣ ¿Ya sabes cómo tomar medidas corporales?</label>
+                <select id="tomar-medidas" name="tomar-medidas">
                     <option value="" disabled selected hidden>Selecciona una opción</option>
-                    <option value="si-necesito">Sí por favor, lo necesito 🙏🏼</option>
-                    <option value="ya-tengo">Ya lo tengo! 🙌🏼</option>
+                    <option value="si-ya-se">Sí, ya sé como 😉</option>
+                    <option value="aun-no">Aún no 😕</option>
                 </select>
             </div>
 
             <div class="form-group">
-                <label for="experiencia">8️⃣ ¿Cuál es tu nivel de Experiencia? 😊<span class="required-asterisk">*</span></label>
-                <select id="experiencia" name="experiencia" required>
+                <label for="medidas-rectas-contorno">8️⃣ ¿Entendiste qué es una medida recta y un contorno corporal?</label>
+                <select id="medidas-rectas-contorno" name="medidas-rectas-contorno">
                     <option value="" disabled selected hidden>Selecciona una opción</option>
-                    <option value="principiante">Principiante 🐣</option>
-                    <option value="intermedio">Intermedio 🤗</option>
-                    <option value="avanzado">Avanzado 👩🏻‍🎓</option>
+                    <option value="si-entendi">Sí, lo entendí 😊</option>
+                    <option value="no-entendi">No entendí esa parte 😔</option>
                 </select>
             </div>
 
             <div class="form-group">
-                <label for="sesion-temor">9️⃣ ¿Estas list@ para tu primera sesión 👩🏻‍🎓👨‍🎓 o tienes un poco de temor 😨?<span class="required-asterisk">*</span></label>
-                <select id="sesion-temor" name="sesion-temor" required>
+                <label for="practicar-molde">9️⃣ ¿Estás preparada para practicar tu primer molde?</label>
+                <select id="practicar-molde" name="practicar-molde">
                     <option value="" disabled selected hidden>Selecciona una opción</option>
-                    <option value="Estoy-lista">Estoy list@ ✌🏼</option>
-                    <option value="tengo-temor">Tengo un poco de temor 🥺</option>
+                    <option value="estoy-lista">Estoy lista ☺️</option>
+                    <option value="aun-no">Aún no estoy lista 😰</option>
                 </select>
             </div>
 
             <div class="form-group">
-                <label for="maestra-isabel">1️⃣0️⃣ Ya conocías a la Maestra Isabel? 💁🏻‍♀️✂️👚<span class="required-asterisk">*</span></label>
-                <select id="maestra-isabel" name="maestra-isabel" required>
+                <label for="ensenanza-maestra">1️⃣0️⃣ ¿Qué te parece la forma de enseñar de la maestra Isabel?</label>
+                <select id="ensenanza-maestra" name="ensenanza-maestra">
                     <option value="" disabled selected hidden>Selecciona una opción</option>
-                    <option value="si-la-conozco">Sí la conozco 😊</option>
-                    <option value="no-la-conocia">No la conocía ☺️</option>
+                    <option value="muy-facil">Muy fácil y entendible 👌🏼</option>
+                    <option value="me-costo">Me costó entender 🙆🏻‍♀️</option>
                 </select>
             </div>
 
             <div class="form-group">
-                <label for="prenda">1️⃣1️⃣ ¿Que prenda de vestir te gustaría aprender? 👗👖👕👚<span class="required-asterisk">*</span></label>
-                <input type="text" id="prenda" name="prenda" placeholder="Tu respuesta" required>
+                <label for="practicar-medidas">1️⃣1️⃣ ¿Con quién practicarás tu primera toma de medidas corporales?</label>
+                <textarea id="practicar-medidas" name="practicar-medidas" placeholder="Tu respuesta"></textarea>
             </div>
 
             <div class="form-group">
-                <label for="no-gusta">1️⃣2️⃣ ¿Qué es lo que no te gusta en el grupo? 😰<span class="required-asterisk">*</span></label>
-                <input type="text" id="no-gusta" name="no-gusta" placeholder="Tu respuesta" required>
-            </div>
-
-            <div class="form-group">
-                <label for="mensaje">1️⃣3️⃣ Envíanos un mensaje</label>
-                <textarea id="mensaje" name="mensaje"></textarea>
+                <label for="sugerencias">1️⃣2️⃣ Sugiere en qué podríamos mejorar.</label>
+                <textarea id="sugerencias" name="sugerencias" placeholder="Tu respuesta"></textarea>
             </div>
 
             <button type="submit" class="submit-button">Enviar Respuesta</button>
