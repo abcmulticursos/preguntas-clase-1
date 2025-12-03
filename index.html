@@ -366,19 +366,29 @@ document.addEventListener('DOMContentLoaded', function() {
         "CR": { prefijo: "+506", min: 8, max: 8 }
     };
 
-// Asignar prefijo al seleccionar país
+// Asignar prefijo y emoji al seleccionar país
     paisSelect.addEventListener("change", function () {
         const pais = this.value;
         const formato = formatos[pais];
 
         if (!formato) return;
-
-        telefonoInput.value = formato.prefijo + " ";
-        telefonoInput.dataset.prefijo = formato.prefijo;
+        
+        // Obtener la opción seleccionada (el <option>)
+        const selectedOption = paisSelect.options[paisSelect.selectedIndex];
+        // Extraer el prefijo (ej: +57) y el emoji (ej: 🇨🇴) del texto
+        const optionText = selectedOption.textContent.trim();
+        const emoji = optionText.split(' ')[0]; // El emoji es el primer elemento
+        
+        // El valor del campo de teléfono ahora incluye el emoji
+        telefonoInput.value = emoji + " " + formato.prefijo + " ";
+        // Guardamos el prefijo (solo el número) para la lógica de validación
+        telefonoInput.dataset.prefijo = emoji + " " + formato.prefijo;
+        
         // Ya no usamos maxLength de input, el textarea se controla por JS
         const numDigitos = formato.max;
         const caracteresEsperados = "X".repeat(numDigitos);
-        telefonoInput.placeholder = `Ej: ${formato.prefijo} ${caracteresEsperados} (${numDigitos} dígitos)`;
+        // El placeholder muestra el emoji y el prefijo
+        telefonoInput.placeholder = `Ej: ${emoji} ${formato.prefijo} ${caracteresEsperados} (${numDigitos} dígitos)`;
     });
 
     // Evitar borrar el prefijo, restringir a números y controlar la longitud máxima
