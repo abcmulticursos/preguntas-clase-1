@@ -245,23 +245,13 @@
 </div>
 
 <div class="form-group">
-    <label for="telefono">3️⃣ 📞 Número de Teléfono 📲</label>
-    <input type="tel" id="telefono" name="telefono"
-           inputmode="numeric"
-           pattern="[0-9\s+]*"
-           placeholder="Selecciona tu país primero"
-           required>
+    <label for="telefono">3️⃣ 📞 Número de Teléfono 📲</label>
+    <input type="tel" id="telefono" name="telefono"
+           inputmode="numeric"
+           pattern="[0-9\s+]*"
+           placeholder="Selecciona tu país primero"
+           required>
 </div>
-
-
-            <div class="form-group">
-                <label for="telefono">3️⃣ 📞 Número de Teléfono 📲</label>
-                <input type="tel" id="telefono" name="telefono"
-       inputmode="numeric"
-       pattern="[0-9\s+]*"
-       placeholder="Selecciona tu país primero"
-       required>
-            </div>
 
             <div class="form-group">
                 <label for="formulario-medidas-pedido">4️⃣ ¿Ya pediste tu formulario para toma de medidas?</label>
@@ -376,26 +366,61 @@ document.addEventListener('DOMContentLoaded', function() {
         "CR": { prefijo: "+506", min: 8, max: 8 }
     };
 
-    // Asignar prefijo al seleccionar país
-    paisSelect.addEventListener("change", function () {
-        const pais = this.value;
-        const formato = formatos[pais];
+// Asignar prefijo al seleccionar país
+    paisSelect.addEventListener("change", function () {
+        const pais = this.value;
+        const formato = formatos[pais];
 
-        if (!formato) return;
+        if (!formato) return;
 
-        telefonoInput.value = formato.prefijo + " ";
-        telefonoInput.dataset.prefijo = formato.prefijo;
-        telefonoInput.maxLength = formato.prefijo.length + 1 + formato.max;
-        telefonoInput.placeholder = "Ej: " + formato.prefijo + " " + "X".repeat(formato.max);
-    });
+        telefonoInput.value = formato.prefijo + " ";
+        telefonoInput.dataset.prefijo = formato.prefijo;
+        // Ya no usamos maxLength de input, el textarea se controla por JS
+        const numDigitos = formato.max;
+        const caracteresEsperados = "X".repeat(numDigitos);
+        telefonoInput.placeholder = `Ej: ${formato.prefijo} ${caracteresEsperados} (${numDigitos} dígitos)`;
+    });
 
-    // Evitar borrar el prefijo
-    telefonoInput.addEventListener("input", function() {
-        const prefijo = this.dataset.prefijo || "";
-        if (prefijo && !this.value.startsWith(prefijo + " ")) {
-            this.value = prefijo + " ";
-        }
-    });
+    // Evitar borrar el prefijo, restringir a números y controlar la longitud máxima
+    telefonoInput.addEventListener("input", function() {
+        const prefijo = this.dataset.prefijo || "";
+        const pais = paisSelect.value;
+        const formato = formatos[pais];
+        let currentValue = this.value;
+        
+        // 1. Evitar borrar el prefijo
+        if (prefijo && !currentValue.startsWith(prefijo + " ")) {
+            this.value = prefijo + " ";
+            currentValue = this.value;
+        }
+
+        // 2. Restringir a números después del prefijo
+        if (formato) {
+            // Usamos una RegEx más estricta para asegurar que solo haya dígitos y espacios después del prefijo
+            const regex = new RegExp(`^${prefijo.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\s?([0-9\\s]*)`);
+            const match = currentValue.match(regex);
+            
+            if (match) {
+                // Reconstruye el valor para eliminar cualquier carácter no numérico
+                this.value = prefijo + " " + match[1].trim();
+            } else if (prefijo && currentValue.length > prefijo.length + 1) {
+                // Si hay caracteres no válidos, restaura solo el prefijo
+                this.value = prefijo + " ";
+            }
+            
+            // 3. Controlar la longitud máxima (ya que es un textarea)
+            const numeroLimpio = this.value
+                .replace(formato.prefijo, "")
+                .replace(/\s+/g, "")
+                .trim();
+            
+            if (numeroLimpio.length > formato.max) {
+                // Si se excede la longitud, recorta el valor
+                const nuevoNumero = numeroLimpio.substring(0, formato.max);
+                this.value = formato.prefijo + " " + nuevoNumero;
+            }
+        }
+    });
 
     formulario.addEventListener('submit', function(event) {
 
