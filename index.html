@@ -120,13 +120,48 @@
         margin-bottom: 30px;
     }
 
-    /* PROPIEDADES DE ALTURA Y COMPORTAMIENTO UNIFORMES */
-    .form-group textarea,
-    .form-group input[type="tel"] {
+/* PROPIEDADES DE ALTURA Y COMPORTAMIENTO UNIFORMES */
+    .form-group textarea {
+        height: 54px;
+        line-height: 54px; /* Centra el texto verticalmente */
+        resize: none; /* Evita que el usuario cambie el tamaño */
+        overflow: hidden; /* Oculta cualquier texto que se desborde */
+    }
+
+    /* *** ESTILOS CLAVE AÑADIDOS/MODIFICADOS PARA EL INPUT DE TELÉFONO *** */
+    /* Contenedor del campo de teléfono */
+    .phone-input-container {
+        position: relative;
+        width: 100%; 
+        margin-bottom: 30px; /* Para mantener el espaciado entre preguntas */
         height: 54px;
-        line-height: 54px; /* Centra el texto verticalmente */
-        resize: none; /* Evita que el usuario cambie el tamaño */
-        overflow: hidden; /* Oculta cualquier texto que se desborde */
+    }
+
+    /* El campo de input en sí */
+    .form-group input[type="tel"] {
+        /* Se mantiene el height y line-height de 54px para el centrado vertical */
+        margin-bottom: 0; /* Eliminamos el margen duplicado */
+        /* Añadimos padding a la izquierda para que el texto NO se superponga con la bandera/prefijo */
+        padding-left: 120px; /* Espacio suficiente para la bandera y el prefijo */
+    }
+
+    /* Estilo para el elemento que contendrá el emoji y prefijo */
+    #flag-prefix-display {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 54px;
+        line-height: 54px; /* Centra verticalmente */
+        padding: 0 10px;
+        color: black;
+        font-size: 19px;
+        font-weight: normal;
+        pointer-events: none; /* Permite hacer clic en el input detrás */
+        background: transparent;
+        z-index: 10;
+        border-right: 1px solid #ccc; 
+        /* Asegura que el texto no se envuelva */
+        white-space: nowrap; 
     }
 
     /* Regla específica para el campo de mensaje largo */
@@ -245,12 +280,16 @@
 </div>
 
 <div class="form-group">
-    <label for="telefono">3️⃣ 📞 Número de Teléfono 📲</label>
-    <input type="tel" id="telefono" name="telefono"
-           inputmode="numeric"
-           pattern="[0-9\s+]*"
-           placeholder="Selecciona tu país primero"
-           required>
+    <label for="telefono">3️⃣ 📞 Número de Teléfono 📲</label>
+    <div class="phone-input-container">
+        <span id="flag-prefix-display"></span> 
+        
+        <input type="tel" id="telefono" name="telefono"
+            inputmode="numeric"
+            pattern="[0-9\s+]*"
+            placeholder="Selecciona tu país primero"
+            required>
+    </div>
 </div>
 
             <div class="form-group">
@@ -349,135 +388,137 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const paisSelect = document.getElementById("pais");
     const telefonoInput = document.getElementById("telefono");
+const flagPrefixDisplay = document.getElementById("flag-prefix-display"); // ¡Nuevo!
 
-    const formatos = {
-        "CO": { prefijo: "+57", min: 10, max: 10 },
-        "MX": { prefijo: "+52", min: 10, max: 10 },
-        "PE": { prefijo: "+51", min: 9, max: 9 },
-        "EC": { prefijo: "+593", min: 9, max: 9 },
-        "CL": { prefijo: "+56", min: 9, max: 9 },
-        "BO": { prefijo: "+591", min: 8, max: 8 },
-        "GT": { prefijo: "+502", min: 8, max: 8 },
-        "SV": { prefijo: "+503", min: 8, max: 8 },
-        "AR": { prefijo: "+54", min: 10, max: 10 },
-        "VE": { prefijo: "+58", min: 10, max: 10 },
-        "HN": { prefijo: "+504", min: 8, max: 8 },
-        "UY": { prefijo: "+598", min: 8, max: 8 },
-        "CR": { prefijo: "+506", min: 8, max: 8 }
-    };
+    const formatos = {
+        "CO": { prefijo: "+57", min: 10, max: 10 },
+        "MX": { prefijo: "+52", min: 10, max: 10 },
+        "PE": { prefijo: "+51", min: 9, max: 9 },
+        "EC": { prefijo: "+593", min: 9, max: 9 },
+        "CL": { prefijo: "+56", min: 9, max: 9 },
+        "BO": { prefijo: "+591", min: 8, max: 8 },
+        "GT": { prefijo: "+502", min: 8, max: 8 },
+        "SV": { prefijo: "+503", min: 8, max: 8 },
+        "AR": { prefijo: "+54", min: 10, max: 10 },
+        "VE": { prefijo: "+58", min: 10, max: 10 },
+        "HN": { prefijo: "+504", min: 8, max: 8 },
+        "UY": { prefijo: "+598", min: 8, max: 8 },
+        "CR": { prefijo: "+506", min: 8, max: 8 }
+    };
 
-// Asignar prefijo y emoji al seleccionar país
-    paisSelect.addEventListener("change", function () {
-        const pais = this.value;
-        const formato = formatos[pais];
-
-        if (!formato) return;
-        
-        // Obtener la opción seleccionada (el <option>)
-        const selectedOption = paisSelect.options[paisSelect.selectedIndex];
-        // Extraer el prefijo (ej: +57) y el emoji (ej: 🇨🇴) del texto
-        const optionText = selectedOption.textContent.trim();
-        const emoji = optionText.split(' ')[0]; // El emoji es el primer elemento
-        
-        // El valor del campo de teléfono ahora incluye el emoji
-        telefonoInput.value = emoji + " " + formato.prefijo + " ";
-        // Guardamos el prefijo (solo el número) para la lógica de validación
-        telefonoInput.dataset.prefijo = emoji + " " + formato.prefijo;
-        
-        // Ya no usamos maxLength de input, el textarea se controla por JS
-        const numDigitos = formato.max;
-        const caracteresEsperados = "X".repeat(numDigitos);
-        // El placeholder muestra el emoji y el prefijo
-        telefonoInput.placeholder = `Ej: ${emoji} ${formato.prefijo} ${caracteresEsperados} (${numDigitos} dígitos)`;
-    });
-
-    // Evitar borrar el prefijo, restringir a números y controlar la longitud máxima
-    telefonoInput.addEventListener("input", function() {
-        const prefijo = this.dataset.prefijo || "";
-        const pais = paisSelect.value;
-        const formato = formatos[pais];
-        let currentValue = this.value;
-        
-        // 1. Evitar borrar el prefijo
-        if (prefijo && !currentValue.startsWith(prefijo + " ")) {
-            this.value = prefijo + " ";
-            currentValue = this.value;
-        }
-
-        // 2. Restringir a números después del prefijo
-        if (formato) {
-            // Usamos una RegEx más estricta para asegurar que solo haya dígitos y espacios después del prefijo
-            const regex = new RegExp(`^${prefijo.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\s?([0-9\\s]*)`);
-            const match = currentValue.match(regex);
-            
-            if (match) {
-                // Reconstruye el valor para eliminar cualquier carácter no numérico
-                this.value = prefijo + " " + match[1].trim();
-            } else if (prefijo && currentValue.length > prefijo.length + 1) {
-                // Si hay caracteres no válidos, restaura solo el prefijo
-                this.value = prefijo + " ";
-            }
-            
-            // 3. Controlar la longitud máxima (ya que es un textarea)
-            const numeroLimpio = this.value
-                .replace(formato.prefijo, "")
-                .replace(/\s+/g, "")
-                .trim();
-            
-            if (numeroLimpio.length > formato.max) {
-                // Si se excede la longitud, recorta el valor
-                const nuevoNumero = numeroLimpio.substring(0, formato.max);
-                this.value = formato.prefijo + " " + nuevoNumero;
-            }
-        }
-    });
-
-    formulario.addEventListener('submit', function(event) {
-
+    // FUNCIÓN CENTRAL PARA SINCRONIZAR PAÍS Y TELÉFONO
+    function updatePhoneInput() {
         const pais = paisSelect.value;
         const formato = formatos[pais];
-
+        
         if (!formato) {
-            alert("Debes seleccionar tu país.");
-            paisSelect.focus();
-            event.preventDefault();
+            flagPrefixDisplay.textContent = "";
+            telefonoInput.value = "";
+            telefonoInput.placeholder = "Selecciona tu país primero";
             return;
         }
+        
+        const selectedOption = paisSelect.options[paisSelect.selectedIndex];
+        const optionText = selectedOption.textContent.trim();
+        const emoji = optionText.split(' ')[0];
+        
+        const fullPrefix = `${emoji} ${formato.prefijo}`;
+        
+        // 1. Actualiza el elemento SPAN que muestra el prefijo fijo
+        flagPrefixDisplay.textContent = fullPrefix;
 
-        const numero = telefonoInput.value
-            .replace(formato.prefijo, "")
-            .replace(/\s+/g, "")   // quita espacios
-            .trim();
+        // 2. Prepara el placeholder
+        const numDigitos = formato.max;
+        const caracteresEsperados = "X".repeat(numDigitos);
+        telefonoInput.placeholder = `Ej: ${caracteresEsperados} (${numDigitos} dígitos)`;
 
-        if (numero.length < formato.min || numero.length > formato.max) {
-            alert("El número de teléfono no es válido para este país.");
-            telefonoInput.focus();
-            event.preventDefault();
-            return;
+        // 3. Establece el valor inicial/limpia el campo
+        let numeroActual = telefonoInput.value.replace(/\D/g, '');
+        
+        // Restablece el valor del input a solo los números, recortando si es necesario
+        if (numeroActual.length > numDigitos) {
+            numeroActual = numeroActual.substring(0, numDigitos);
         }
+        telefonoInput.value = numeroActual;
+        
+        // Almacena solo el prefijo numérico (+xx) para la lógica de envío
+        telefonoInput.dataset.prefijo = formato.prefijo; 
+    }
 
-        // Continúa con envío
-        event.preventDefault();
+    // Al seleccionar país, actualiza el campo de teléfono.
+    paisSelect.addEventListener("change", updatePhoneInput);
 
-        mainContainer.style.display = 'none';
-        mensajeExito.style.display = 'block';
+    // Evitar caracteres no numéricos y controlar la longitud máxima
+    telefonoInput.addEventListener("input", function() {
+        const pais = paisSelect.value;
+        const formato = formatos[pais];
+        
+        if (!formato) return;
 
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-
-        const formData = new FormData(formulario);
-        const scriptURL = formulario.getAttribute('action');
-
-        fetch(scriptURL, {
-            method: 'POST',
-            body: formData,
-            mode: 'no-cors'
-        })
-        .then(response => console.log('Envío exitoso!', response))
-        .catch(error => console.error('Error!', error));
+        let currentValue = this.value;
+        
+        // 1. Limpia cualquier carácter que no sea dígito
+        let soloDigitos = currentValue.replace(/\D/g, '');
+        
+        // 2. Controlar la longitud máxima
+        if (soloDigitos.length > formato.max) {
+            soloDigitos = soloDigitos.substring(0, formato.max);
+        }
+        
+        // 3. Actualiza el valor del campo: solo dígitos
+        this.value = soloDigitos;
     });
+
+formulario.addEventListener('submit', function(event) {
+        event.preventDefault(); // Detiene el envío predeterminado para validación
+
+        const pais = paisSelect.value;
+        const formato = formatos[pais];
+
+        if (!formato) {
+            alert("Debes seleccionar tu país.");
+            paisSelect.focus();
+            return;
+        }
+
+        // El valor del input ya solo contiene los dígitos locales
+        const numeroLocal = telefonoInput.value.replace(/\D/g, "");
+
+        if (numeroLocal.length < formato.min || numeroLocal.length > formato.max) {
+            alert(`El número de teléfono no es válido para este país. Se esperan ${formato.min} dígitos.`);
+            telefonoInput.focus();
+            return;
+        }
+
+        // *** CLAVE: Ensamblar el número completo y limpio para el envío ***
+        const numeroCompleto = formato.prefijo + numeroLocal;
+        
+        // Preparamos los datos
+        const formData = new FormData(formulario);
+        
+        // Reemplazamos el valor del campo 'telefono' con el número completo ensamblado
+        formData.set('telefono', numeroCompleto);
+
+        // Continúa con el envío
+        
+        mainContainer.style.display = 'none';
+        mensajeExito.style.display = 'block';
+
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+
+        const scriptURL = formulario.getAttribute('action');
+
+        fetch(scriptURL, {
+            method: 'POST',
+            body: formData,
+            mode: 'no-cors'
+        })
+        .then(response => console.log('Envío exitoso!', response))
+        .catch(error => console.error('Error!', error));
+    });
 
 });
 </script>
