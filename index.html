@@ -226,33 +226,32 @@
 <div class="form-group">
     <label for="pais">2️⃣ ¿De qué país nos visitas?</label>
 
-    <select id="pais" name="pais" required style="
-        font-size: 20px;
-        height: 60px;
-        padding: 13px;
-        border-radius: 10px;
-        width: 100%;
-    ">
-        <option value="">Selecciona tu país</option>
-        <option value="colombia">🇨🇴 Colombia</option>
-        <option value="mexico">🇲🇽 México</option>
-        <option value="peru">🇵🇪 Perú</option>
-        <option value="ecuador">🇪🇨 Ecuador</option>
-        <option value="chile">🇨🇱 Chile</option>
-        <option value="bolivia">🇧🇴 Bolivia</option>
-        <option value="guatemala">🇬🇹 Guatemala</option>
-        <option value="elsalvador">🇸🇻 El Salvador</option>
-        <option value="argentina">🇦🇷 Argentina</option>
-        <option value="venezuela">🇻🇪 Venezuela</option>
-        <option value="honduras">🇭🇳 Honduras</option>
-        <option value="uruguay">🇺🇾 Uruguay</option>
-        <option value="costarica">🇨🇷 Costa Rica</option>
-    </select>
+    <select id="pais" name="pais" required>
+    <option value="">Selecciona tu país</option>
+    <option value="CO" data-prefijo="+57">🇨🇴 Colombia</option>
+    <option value="MX" data-prefijo="+52">🇲🇽 México</option>
+    <option value="PE" data-prefijo="+51">🇵🇪 Perú</option>
+    <option value="EC" data-prefijo="+593">🇪🇨 Ecuador</option>
+    <option value="CL" data-prefijo="+56">🇨🇱 Chile</option>
+    <option value="BO" data-prefijo="+591">🇧🇴 Bolivia</option>
+    <option value="GT" data-prefijo="+502">🇬🇹 Guatemala</option>
+    <option value="SV" data-prefijo="+503">🇸🇻 El Salvador</option>
+    <option value="AR" data-prefijo="+54">🇦🇷 Argentina</option>
+    <option value="VE" data-prefijo="+58">🇻🇪 Venezuela</option>
+    <option value="HN" data-prefijo="+504">🇭🇳 Honduras</option>
+    <option value="UY" data-prefijo="+598">🇺🇾 Uruguay</option>
+    <option value="CR" data-prefijo="+506">🇨🇷 Costa Rica</option>
+</select>
+
 </div>
 
             <div class="form-group">
                 <label for="telefono">3️⃣ 📞 Número de Teléfono 📲</label>
-                <input type="tel" id="telefono" name="telefono" placeholder="Tu respuesta">
+                <input type="tel" id="telefono" name="telefono"
+       inputmode="numeric"
+       pattern="[0-9\s+]*"
+       placeholder="Selecciona tu país primero"
+       required>
             </div>
 
             <div class="form-group">
