@@ -284,11 +284,10 @@
     <div class="phone-input-container">
         <span id="flag-prefix-display"></span> 
         
-        <input type="tel" id="telefono" name="telefono"
-            inputmode="numeric"
-            pattern="[0-9\s+]*"
-            placeholder="Selecciona tu país primero"
-            required>
+<input type="tel" id="telefono" name="telefono"
+            inputmode="numeric"
+            pattern="[0-9\s+]*"
+            required>
     </div>
 </div>
 
@@ -406,31 +405,29 @@ const flagPrefixDisplay = document.getElementById("flag-prefix-display"); // ¡N
         "CR": { prefijo: "+506", min: 8, max: 8 }
     };
 
-    // FUNCIÓN CENTRAL PARA SINCRONIZAR PAÍS Y TELÉFONO
-    function updatePhoneInput() {
-        const pais = paisSelect.value;
-        const formato = formatos[pais];
-        
-        if (!formato) {
-            flagPrefixDisplay.textContent = "";
-            telefonoInput.value = "";
-            telefonoInput.placeholder = "Selecciona tu país primero";
-            return;
-        }
-        
-        const selectedOption = paisSelect.options[paisSelect.selectedIndex];
-        const optionText = selectedOption.textContent.trim();
-        const emoji = optionText.split(' ')[0];
-        
-        const fullPrefix = `${emoji} ${formato.prefijo}`;
-        
-        // 1. Actualiza el elemento SPAN que muestra el prefijo fijo
-        flagPrefixDisplay.textContent = fullPrefix;
+// FUNCIÓN CENTRAL PARA SINCRONIZAR PAÍS Y TELÉFONO
+    function updatePhoneInput() {
+        const pais = paisSelect.value;
+        const formato = formatos[pais];
+        
+        if (!formato) {
+            flagPrefixDisplay.textContent = "";
+            telefonoInput.value = "";
+            telefonoInput.placeholder = ""; // Ahora es una cadena vacía
+            return;
+        }
+        
+        const selectedOption = paisSelect.options[paisSelect.selectedIndex];
+        const optionText = selectedOption.textContent.trim();
+        const emoji = optionText.split(' ')[0];
+        
+        const fullPrefix = `${emoji} ${formato.prefijo}`;
+        
+        // 1. Actualiza el elemento SPAN que muestra el prefijo fijo
+        flagPrefixDisplay.textContent = fullPrefix;
 
-        // 2. Prepara el placeholder
-        const numDigitos = formato.max;
-        const caracteresEsperados = "X".repeat(numDigitos);
-        telefonoInput.placeholder = `Ej: ${caracteresEsperados} (${numDigitos} dígitos)`;
+        // 2. Prepara el placeholder (SE ELIMINA EL TEXTO DEL EJEMPLO)
+        telefonoInput.placeholder = ""; // Ahora es una cadena vacía
 
         // 3. Establece el valor inicial/limpia el campo
         let numeroActual = telefonoInput.value.replace(/\D/g, '');
