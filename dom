@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-s0cale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Preguntas Clase 1</title>
 <style>
     /* --- ESTILOS GENERALES Y AJUSTABLES --- */
@@ -223,10 +223,32 @@
                 <textarea id="nombre" name="nombre" placeholder="Tu respuesta"></textarea>
             </div>
 
-            <div class="form-group">
-              <label for="pais">2️⃣ ¿De qué país nos visitas?</label>
-              <textarea id="pais" name="pais" placeholder="Escribe tu país"></textarea>
-            </div>
+<div class="form-group">
+    <label for="pais">2️⃣ ¿De qué país nos visitas?</label>
+
+    <select id="pais" name="pais" required style="
+        font-size: 20px;
+        height: 60px;
+        padding: 13px;
+        border-radius: 10px;
+        width: 100%;
+    ">
+        <option value="">Selecciona tu país</option>
+        <option value="colombia">🇨🇴 Colombia</option>
+        <option value="mexico">🇲🇽 México</option>
+        <option value="peru">🇵🇪 Perú</option>
+        <option value="ecuador">🇪🇨 Ecuador</option>
+        <option value="chile">🇨🇱 Chile</option>
+        <option value="bolivia">🇧🇴 Bolivia</option>
+        <option value="guatemala">🇬🇹 Guatemala</option>
+        <option value="elsalvador">🇸🇻 El Salvador</option>
+        <option value="argentina">🇦🇷 Argentina</option>
+        <option value="venezuela">🇻🇪 Venezuela</option>
+        <option value="honduras">🇭🇳 Honduras</option>
+        <option value="uruguay">🇺🇾 Uruguay</option>
+        <option value="costarica">🇨🇷 Costa Rica</option>
+    </select>
+</div>
 
             <div class="form-group">
                 <label for="telefono">3️⃣ 📞 Número de Teléfono 📲</label>
@@ -321,31 +343,56 @@
 </div>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const formulario = document.getElementById('miFormulario');
-        const mainContainer = document.getElementById('main-container');
-        const mensajeExito = document.getElementById('mensaje-exito');
+document.addEventListener('DOMContentLoaded', function() {
+    const formulario = document.getElementById('miFormulario');
+    const mainContainer = document.getElementById('main-container');
+    const mensajeExito = document.getElementById('mensaje-exito');
+    const pais = document.getElementById("pais");
+    const telefono = document.getElementById("telefono");
 
-        formulario.addEventListener('submit', function(event) {
-            event.preventDefault();
+    const reglas = {
+        colombia:  /^(\+57)?3\d{9}$/,
+        mexico:    /^(\+52)?\d{10}$/,
+        peru:      /^(\+51)?9\d{8}$/,
+        ecuador:   /^(\+593)?09\d{8}$/,
+        chile:     /^(\+56)?9\d{8}$/,
+        bolivia:   /^(\+591)?[67]\d{7}$/,
+        guatemala: /^(\+502)?[3-5]\d{7}$/,
+        elsalvador:/^(\+503)?[6-7]\d{7}$/,
+        argentina: /^(\+54)?9\d{10}$/,
+        venezuela: /^(\+58)?4\d{9}$/,
+        honduras:  /^(\+504)?[389]\d{7}$/,
+        uruguay:   /^(\+598)?9\d{7}$/,
+        costarica: /^(\+506)?[6-8]\d{7}$/
+    };
 
-            mainContainer.style.display = 'none';
-            mensajeExito.style.display = 'block';
-
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-
-            const formData = new FormData(formulario);
-            const scriptURL = formulario.getAttribute('action');
-
-            fetch(scriptURL, { method: 'POST', body: formData })
-                .then(response => console.log('Envío exitoso!', response))
-                .catch(error => console.error('Error!', error));
-        });
+    telefono.addEventListener("input", function () {
+        this.value = this.value.replace(/[^0-9+]/g, '');
     });
+
+    formulario.addEventListener("submit", function(event) {
+
+        const paisElegido = pais.value;
+        const numero = telefono.value.replace(/\s+/g, '').trim();
+
+        if (!paisElegido) {
+            alert("Selecciona tu país");
+            pais.focus();
+            event.preventDefault();
+            return;
+        }
+
+        if (!reglas[paisElegido].test(numero)) {
+            alert("El número de teléfono no corresponde al país seleccionado");
+            telefono.focus();
+            event.preventDefault();
+            return;
+        }
+
+    });
+});
 </script>
+
 
 </body>
 </html>
